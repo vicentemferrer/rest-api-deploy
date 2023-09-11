@@ -1,5 +1,6 @@
 const express = require('express')
 const crypto = require('node:crypto')
+const { resolve } = require('node:path')
 const cors = require('cors')
 const movies = require('./movies.json')
 const { validateMovie, validatePartialMovie } = require('./schemas/movie')
@@ -20,6 +21,10 @@ app.use(cors({
     }
   }
 }))
+
+app.get('/', (req, res) => {
+  res.sendFile(resolve(__dirname, 'index.html'))
+})
 
 app.get('/movies', (req, res) => {
   const { genre } = req.query
